@@ -1,0 +1,16 @@
+<img src="#" alt="album cover">
+<h2>{{this.title}}</h2>
+<h3>
+  {{#each artists}}
+<a href="#">{{this.name}}</a>
+  {{/each}}
+</h3>
+{{!-- // Año de edición --}}
+<h4>{{this.year}}</h4>
+<h5>{{this.genres}}</h5>
+<h5>{{this.styles}}</h5>
+{{!-- // Número y nombre de canción --}}
+<ul>{{#each tracklist}} 
+  <li>{{position}} {{title}}</li>
+  {{/each}}
+</ul>
