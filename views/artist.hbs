@@ -1,0 +1,30 @@
+<h1>{{this.name}}</h1>
+<hr>
+<p>{{this.profile}}</p>
+
+  
+{{#each this.members}}
+<h3>{{this.name}}</h3>
+<p>{{this.active}}</p>
+{{/each}}
+<hr>
+<a href="/release/{{this.id}}">enlace a discografía</a>
+
+
+
+
+
+
+
+
+
+
+
+Campos a elegir pagina principal artista:
+- profile
+- name
+- members (nombre, active)
+- img: type: "primary" (opción user add photo)
+- releases :
+- title
+- año
