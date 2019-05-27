@@ -7,31 +7,44 @@ router.get('/', (req, res, next) => {
 });
 
 router.get("/artist/:artist_id/release", (req, res, next) => {
-            axios
-                .get(`https://api.discogs.com/artists/${req.params.artist_id}/releases`)
-                .then(response => {
-                    res.render("release", response.data);
-                })
-                .catch(err => console.log("hubo un error", err));
+    axios
+        .get(`https://api.discogs.com/artists/${req.params.artist_id}/releases`)
+        .then(response => {
+            res.render("release", response.data);
+        })
+        .catch(err => console.log("hubo un error", err));
+
+})
 
 
-            router.get('/albums', (req, res, next) => res.render('albums'))
+router.get('/artist/albums/:release_id', (req, res, next) => {
+    console.log("esto es ", req.params.release_id)
 
-            router.get("/artist/:artist_id", (req, res, next) => {
-                console.log(req.params)
-                axios
-                    .get(`https://api.discogs.com/artists/${req.params.artist_id}`)
-                    .then(response => {
-                        res.render("artist-detail", response.data);
-                    })
-                    .catch(err => console.log("hubo un error", err));
-            });
+    axios
+        .get(`https://api.discogs.com/masters/${req.params.release_id}`)
+        .then(response => {
+            res.render('albums', response.data)
+        })
+        .catch(err => console.log("hubo un error", err));
 
 
+})
+
+router.get("/artist/:artist_id", (req, res, next) => {
+    console.log(req.params)
+    axios
+        .get(`https://api.discogs.com/artists/${req.params.artist_id}`)
+        .then(response => {
+            res.render("artist-detail", response.data);
+        })
+        .catch(err => console.log("hubo un error", err));
+});
 
 
 
 
 
 
-            module.exports = router;
+
+
+module.exports = router;
