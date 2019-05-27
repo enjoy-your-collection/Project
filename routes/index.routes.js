@@ -131,7 +131,108 @@ router.get("/artist", (req, res, next) => {
 router.get("/release/:artist_id", (req, res, next) => {
     const id_artist = req.params.artist_id
     console.log(id_artist)
-    res.redirect("/")
+    const release = {
+        pagination: {
+            per_page: 50,
+            pages: 29,
+            page: 1,
+            urls: {
+                last: "https://api.discogs.com/artists/125246/releases?per_page=50&page=29",
+                next: "https://api.discogs.com/artists/125246/releases?per_page=50&page=2"
+            },
+            items: 1427
+        },
+        releases: [{
+                stats: {
+                    community: {
+                        in_collection: 231,
+                        in_wantlist: 1745
+                    }
+                },
+                thumb: "",
+                title: "Love Buzz b/w Big Cheese",
+                main_release: 392900,
+                artist: "Nirvana",
+                role: "Main",
+                year: 1988,
+                resource_url: "https://api.discogs.com/masters/155876",
+                type: "master",
+                id: 155876
+            },
+            {
+                stats: {
+                    community: {
+                        in_collection: 532,
+                        in_wantlist: 2929
+                    }
+                },
+                thumb: "",
+                title: "Bleach",
+                main_release: 2795554,
+                artist: "Nirvana",
+                role: "Main",
+                year: 1989,
+                resource_url: "https://api.discogs.com/masters/13773",
+                type: "master",
+                id: 13773
+            },
+            {
+                stats: {
+                    community: {
+                        in_collection: 484,
+                        in_wantlist: 239
+                    }
+                },
+                thumb: "",
+                title: "Blew",
+                main_release: 531354,
+                artist: "Nirvana",
+                role: "Main",
+                year: 1989,
+                resource_url: "https://api.discogs.com/masters/42479",
+                type: "master",
+                id: 42479
+            },
+            {
+                stats: {
+                    community: {
+                        in_collection: 1914,
+                        in_wantlist: 456
+                    }
+                },
+                thumb: "",
+                title: "Sliver",
+                main_release: 368047,
+                artist: "Nirvana",
+                role: "Main",
+                year: 1990,
+                resource_url: "https://api.discogs.com/masters/13934",
+                type: "master",
+                id: 13934
+            },
+            {
+                status: "Accepted",
+                stats: {
+                    community: {
+                        in_collection: 56,
+                        in_wantlist: 113
+                    }
+                },
+                thumb: "",
+                format: "CD, Single, Promo",
+                title: "On A Plain",
+                label: "DGC",
+                role: "Main",
+                year: 1991,
+                resource_url: "https://api.discogs.com/releases/2659685",
+                artist: "Nirvana",
+                type: "release",
+                id: 2659685
+            }
+        ]
+    }
+
+    res.render("release", release)
 })
 
 module.exports = router;
