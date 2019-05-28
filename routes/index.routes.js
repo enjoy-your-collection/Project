@@ -39,9 +39,22 @@ router.get("/artist/:artist_id", (req, res, next) => {
         })
         .catch(err => console.log("hubo un error", err));
 });
+router.post("/artists", (req, res, post) => {
+    axios.get(
+            `https://api.discogs.com/database/search?q=${req.body.artist}&key=aZPWSvWzWSrzydPcQNVw&secret=jhiOqYTPMVIeUXHnolYuNsZQuLBRUJRQ`
+        )
+        .then(results => {
+            console.log(results.data)
+            res.render("search", { results: results.data })
+
+        })
+        .catch(err => console.log(err))
+})
 
 
 
+//https://api.discogs.com/database/
+//search?q=name&key=aZPWSvWzWSrzydPcQNVw&secret=jhiOqYTPMVIeUXHnolYuNsZQuLBRUJRQ
 
 
 
