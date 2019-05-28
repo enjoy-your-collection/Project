@@ -61,7 +61,7 @@ hbs.registerHelper('ifUndefined', (value, options) => {
 
 
 // default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
+app.locals.title = 'Enjoy Your Records';
 
 
 // Enable authentication using session + passport
@@ -79,6 +79,8 @@ app.use('/', index);
 
 const authRoutes = require('./routes/auth.routes');
 app.use('/auth', authRoutes);
+
+
 
 
 module.exports = app;

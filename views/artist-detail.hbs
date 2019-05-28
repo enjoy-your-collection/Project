@@ -1,0 +1,12 @@
+<h1>{{this.name}}</h1>
+<hr>
+<p>{{this.profile}}</p>
+
+  
+{{#each this.members}}
+<h3>{{this.name}}</h3>
+<p>{{this.active}}</p>
+{{/each}}
+<hr>
+<a href="/artist/{{this.id}}/release">enlace a discografía</a>
+
