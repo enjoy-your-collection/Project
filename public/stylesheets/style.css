@@ -5,4 +5,10 @@ body {
 a {
   color: #00B7FF; }
 
+.review label {
+  margin: 25px; }
+
+.description {
+  display: block; }
+
 /*# sourceMappingURL=style.css.map */
