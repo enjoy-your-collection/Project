@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const axios = require("axios")
 const Review = require("../models/review")
+const Artist = require("../models/artist")
     /* GET home page */
 router.get('/', (req, res, next) => {
     
@@ -48,13 +49,42 @@ router.get('/artist/albums/:release_id', (req, res, next) => {
 })
 // Vista artista
 router.get("/artist/:artist_id", (req, res, next) => {
-    console.log(req.params)
-    axios
-        .get(`https://api.discogs.com/artists/${req.params.artist_id}`)
-        .then(response => {
-            res.render("artist-detail", response.data);
-        })
-        .catch(err => console.log("hubo un error", err));
+
+
+    Artist.findOne({ idArtist: req.params.artist_id }, )
+        .then(found => {
+            if (!found) {
+                newArt()
+                return
+
+            }
+            console.log("este ya estaba")
+            res.render("artist-detail", found)
+        });
+
+    const newArt = () => {
+        console.log("este es nuevo")
+        axios.get(`https://api.discogs.com/artists/${req.params.artist_id}`)
+            .then(response => {
+                const { name, profile, members, id } = response.data
+                const newArtist = new Artist({
+                    name,
+                    profile,
+                    members,
+                    idArtist: id
+                });
+                newArtist.save()
+                    .then((created) => {
+                        console.log("guardado", created)
+                        res.render("artist-detail", created);
+
+
+                    })
+
+            })
+            .catch(err => console.log("hubo un error", err));
+    }
+
 });
 
 // Vista búsqueda artistas
