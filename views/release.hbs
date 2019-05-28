@@ -1,3 +1,7 @@
+{{#if msg}}
+<h3>{{this.msg}}</h3>
+<a href="javascript:history.go(-1)">Vuelta atras</a>
+{{/if}}
 {{#each this.releases}}
 <section>
   <h3>{{this.title}}</h3>

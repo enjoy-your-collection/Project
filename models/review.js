@@ -3,8 +3,9 @@ const Schema = mongoose.Schema;
 
 const reviewSchema = new Schema({
     title: String,
+    rating: { type: Number, min: 1, max: 10 },
     description: String,
-    rating: { type: Number, min: 1, max: 10 }
+    idAlbum: Number
 }, {
     timestamps: {
         createdAt: "created_at",

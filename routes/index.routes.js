@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const axios = require("axios")
+const Review = require("../models/review")
     /* GET home page */
 router.get('/', (req, res, next) => {
     res.render('index');
@@ -19,13 +20,19 @@ router.get("/artist/:artist_id/release", (req, res, next) => {
 
 router.get('/artist/albums/:release_id', (req, res, next) => {
     console.log("esto es ", req.params.release_id)
-
+        // let reviews = []
+        // Review.find({})
+        //     .then(elm => reviews = [...elm])
+        //     .catch(err => console.log("error de find", err))
+        // console.log(reviews)
     axios
         .get(`https://api.discogs.com/masters/${req.params.release_id}`)
         .then(response => {
-            res.render('albums', response.data)
+            Review.find({ idAlbum: response.data.id }).then(elm =>
+                res.render("albums", { album: response.data, review: elm })
+            );
         })
-        .catch(err => console.log("hubo un error", err));
+        .catch(err => res.render("release", { msg: "ese album no esta disponible", }));
 
 
 })
@@ -49,6 +56,25 @@ router.post("/artists", (req, res, post) => {
             res.render("search", { results: results.data });
         })
         .catch(err => console.log(err));
+})
+router.post("/review/:album_id", (req, res, next) => {
+    const { title, rate, description } = req.body;
+    console.log("el ratio es", req.body.rate)
+    const id = req.params.album_id
+    console.log("album id", id)
+    const newReview = new Review({
+        title,
+        rating: rate,
+        description,
+        idAlbum: id
+    });
+    newReview.save()
+        .then(x => {
+            console.log("guardado", x)
+            res.redirect(`/artist/albums/${id}`)
+        })
+        .catch(error => console.log(error));
+
 })
 
 
