@@ -52,7 +52,12 @@ router.get("/artist/:artist_id", (req, res, next) => {
     axios
         .get(`https://api.discogs.com/artists/${req.params.artist_id}`)
         .then(response => {
-            res.render("artist-detail", response.data);
+           let artistTab = encodeURIComponent('req.params.artist_id')
+            axios.get(`https://www.songsterr.com/a/ra/songs/byartists.json?artists=${artistTab}`)
+            .then(tab => {
+                console.log(tab)
+                res.render("artist-detail", tab);
+            })
         })
         .catch(err => console.log("hubo un error", err));
 });
