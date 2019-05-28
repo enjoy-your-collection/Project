@@ -41,15 +41,16 @@ router.get('/artist/albums/:release_id', (req, res, next) => {
 router.get("/artist/:artist_id", (req, res, next) => {
 
 
-    // Artist.findOne({ idArtist: req.params.artist_id }, )
-    //     .then(found => {
-    //         if (!found) {
-    //             newArt()
+    Artist.findOne({ idArtist: req.params.artist_id }, )
+        .then(found => {
+            if (!found) {
+                newArt()
+                return
 
-    //         }
-    //         console.log("este ya estaba")
-    //         res.render("artist-detail", found)
-    //     });
+            }
+            console.log("este ya estaba")
+            res.render("artist-detail", found)
+        });
 
     const newArt = () => {
         console.log("este es nuevo")
@@ -62,10 +63,13 @@ router.get("/artist/:artist_id", (req, res, next) => {
                     members,
                     idArtist: id
                 });
-                return newArtist.save((x) => {
-                    console.log("guardado")
+                newArtist.save()
+                    .then((created) => {
+                        console.log("guardado", created)
+                        res.render("artist-detail", created);
 
-                })
+
+                    })
 
             })
             .catch(err => console.log("hubo un error", err));
