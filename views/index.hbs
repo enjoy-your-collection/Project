@@ -1,1 +1,20 @@
 <h1>{{title}}</h1>
+<h2>Artists</h2>
+<ul>
+  {{!-- {{#each }} --}}
+  <li><a href="/artist/{{this.id}}">{{this.name}}</a></li>
+
+</ul>
+<h2>Albums</h2>
+<ul>
+  <li><a href="/albums/albums/{{artists.id}}">{{artists.title}}</a></li>
+</ul>
+
+<h2>Labels</h2>
+<ul>
+  <li><a href="/labels">Label name</a></li>
+</ul>
+<h2>Latest reviews</h2>
+<ul>
+  <li><a href="/latestreview">Latest review</a></li>
+</ul>

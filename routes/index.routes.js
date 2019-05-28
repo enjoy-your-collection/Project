@@ -3,9 +3,19 @@ const router = express.Router();
 const axios = require("axios")
     /* GET home page */
 router.get('/', (req, res, next) => {
-    res.render('index');
-});
+    
+    let randomArtist = (Math.floor(Math.random() * 6279473))
 
+    axios
+        .get(`https://api.discogs.com/artists/${randomArtist}`)
+        .then(response => {
+            res.render("index", response.data);
+        })
+        .catch(err => console.log("hubo un error", err));    
+
+    
+});
+// Vista discografía
 router.get("/artist/:artist_id/release", (req, res, next) => {
     axios
         .get(`https://api.discogs.com/artists/${req.params.artist_id}/releases`)
@@ -16,7 +26,7 @@ router.get("/artist/:artist_id/release", (req, res, next) => {
 
 })
 
-
+// Vista álbum
 router.get('/artist/albums/:release_id', (req, res, next) => {
     console.log("esto es ", req.params.release_id)
 
@@ -29,7 +39,7 @@ router.get('/artist/albums/:release_id', (req, res, next) => {
 
 
 })
-
+// Vista artista
 router.get("/artist/:artist_id", (req, res, next) => {
     console.log(req.params)
     axios
@@ -39,6 +49,8 @@ router.get("/artist/:artist_id", (req, res, next) => {
         })
         .catch(err => console.log("hubo un error", err));
 });
+
+// Vista búsqueda artistas
 router.post("/artists", (req, res, post) => {
     axios
         .get(
