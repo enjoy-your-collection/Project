@@ -13,4 +13,7 @@
 {{/each}}
 <hr>
 <a href="/artist/{{this.idArtist}}/release">enlace a discografía</a>
-
+{{#each this.s}}
+<p>{{title}}</p>
+<a href="http://www.songsterr.com/a/wa/song?id={{id}}" target="_blank">Song</a>
+{{/each}}

@@ -46,16 +46,21 @@ router.get("/artist/:artist_id/release", (req, res, next) => {
 
 })
 
-
-
+// Vista álbum
 router.get('/artist/albums/:release_id', (req, res, next) => {
 
         axios
             .get(`https://api.discogs.com/masters/${req.params.release_id}`)
-            .then(response => {
-                Review.find({ idAlbum: response.data.id }).then(elm =>
-                    res.render("albums", { album: response.data, review: elm })
-                );
+            .then(response => { 
+                let songTabs = response.data.tracklist.map( song => {
+                    song.titleUri = encodeURIComponent(song.title)
+                    return song
+                })
+                Review.find({ idAlbum: response.data.id })
+                .then(elm =>{
+                    console.log(songTabs)
+                    res.render("albums", { album: response.data, review: elm, songTabs, art: response.data.artists[0].name })
+                });
             })
             .catch(err => res.render("discography", { msg: "ese album no esta disponible", }));
 
@@ -63,8 +68,7 @@ router.get('/artist/albums/:release_id', (req, res, next) => {
     })
     // Vista artista
 router.get("/artist/:artist_id", (req, res, next) => {
-
-
+    console.log(req.params)
     Artist.findOne({ idArtist: req.params.artist_id }, )
         .then(found => {
             if (!found) {
@@ -106,6 +110,10 @@ router.get("/artist/:artist_id", (req, res, next) => {
             .catch(err => res.render("artist-detail", { msg: "no se pudo encontrar ese artista" }))
     }
 })
+
+
+
+// Vista búsqueda artistas
 
 router.post("/artists", (req, res, post) => {
     axios.get(
