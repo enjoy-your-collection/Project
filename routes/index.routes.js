@@ -43,7 +43,7 @@ router.get('/', (req, res, next) => {
 
 
 });
-// Vista discografía
+// VISTA DISCOGRAFÍA
 router.get("/artist/:artist_id/release", (req, res, next) => {
     //https://api.discogs.com/database/search?q=Nirvana&key=aZPWSvWzWSrzydPcQNVw&secret=jhiOqYTPMVIeUXHnolYuNsZQuLBRUJRQ
 
@@ -69,9 +69,8 @@ router.get("/artist/:artist_id/release", (req, res, next) => {
         );
 })
 
-// Vista álbum
+// VISTA ALBUM
 router.get('/artist/albums/:release_id', (req, res, next) => {
-
         axios
             .get(`https://api.discogs.com/masters/${req.params.release_id}`)
             .then(response => {
@@ -85,7 +84,7 @@ router.get('/artist/albums/:release_id', (req, res, next) => {
                         res.render("albums", { album: response.data, review: elm, songTabs, art: response.data.artists[0].name })
                     });
             })
-            .catch(err => res.render("discography", { msg: "ese album no esta disponible", }));
+            .catch(err => res.render("discography", { msg: "This release info is not available at the moment", }));
 
 
     })
@@ -142,7 +141,7 @@ router.get("/artist", (req, res, next) => {
 
 
 
-// Vista búsqueda artistas
+// VISTA BÚSQUEDA ARTISTAS
 
 
 router.post("/artists", (req, res, post) => {
@@ -174,8 +173,6 @@ router.post("/review/:album_id", (req, res, next) => {
         .catch(error => console.log(error));
 
 })
-
-
 
 
 

@@ -5,16 +5,42 @@
 <a href="/artist/{{this.id}}">{{this.name}}</a>
   {{/each}}
 </h3>
+
 {{!-- // Año de edición --}}
-<h4>{{album.year}}</h4>
-<h5>{{album.genres}}</h5>
-<h5>{{album.styles}}</h5>
+<h5>Genre: {{album.genres}}</h5>
+<h5>Style: {{album.styles}}</h5>
+<h5>Year: {{album.year}}</h5>
+
 {{!-- // Número y nombre de canción --}}
+<h5>Tracklist:</h5>
 <ul>{{#each album.tracklist}} 
   <li>{{position}} {{title}}</li>
   {{/each}}
 </ul>
 
+{{!-- Guitar Tabs§ --}}
+<h5>Guitar Tabs</h5>
+<ul>
+{{#each songTabs}}
+<li>
+<a href="http://www.songsterr.com/a/wa/bestMatchForQueryString?s={{this.titleUri}}&a={{../art}}"
+  target="_blank">{{this.title}}</a>
+</li>
+{{/each}}
+</ul>
+
+{{!-- Bass Tabs --}}
+<h5>Bass Tabs</h5>
+<ul>
+{{#each songTabs}}
+<li>
+<a href="http://www.songsterr.com/a/wa/bestMatchForQueryString?s={{this.titleUri}}&a={{../art}}&inst=bass"
+  target="_blank">{{this.title}}</a>
+</li>
+{{/each}}
+</ul>
+
+{{!-- Review --}}
 {{#if review}}
 {{#each review}}
 <h3>{{this.title}}</h3>
@@ -23,17 +49,11 @@
 {{/each}}
 {{/if}}
 
-<h3>Guitar Tabs</h3>
-{{#each songTabs}}
-<a href="http://www.songsterr.com/a/wa/bestMatchForQueryString?s={{this.titleUri}}&a={{../art}}"
-  target="_blank">{{this.title}}</a>
-{{/each}}
-
-<h3>Nueva Review</h3>
+<h5>Add a review</h5>
 <form action="/review/{{album.id}}" method="post" class="review">
-<label>Título de la reseña:
+<label>Title:
  <input type="text" required = true name="title"></label>
- <label>Rating de este album:
+ <label>Rating:
 <select name="rate">
   <option value="1">1</option>
   <option value="2">2</option>
@@ -47,10 +67,9 @@
   <option value="10">10</option>
 </select>
  </label>
- <label class="description">
-   Cuerpo de la reseña <br>
-   <textarea name="description" required = true cols= 100 rows = 30 placeholder="Cuerpo de la reseña" ></textarea>
+ <label class="description"><br>
+   <textarea name="description" required = true cols= 100 rows = 30></textarea>
  </label>
- <button>Enviar reseña</button>
+ <button>Send review</button>
 
 </form>

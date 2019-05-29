@@ -1,11 +1,10 @@
 {{#if msg}}
 <h3>{{this.msg}}</h3>
-<a href="javascript:history.go(-1)">Vuelta atras</a>
+<a href="javascript:history.go(-1)">Back</a>
 {{/if}}
 {{#each this.releases}}
 <section>
-  <h3>{{this.title}}</h3>
-  <a href="/artist/albums/{{this.id}}">Acceso al album</a>
+  <a href="/artist/albums/{{this.id}}">{{this.title}}</a> 
   <p>{{this.year}}</p>
 </section>
 {{/each}}
