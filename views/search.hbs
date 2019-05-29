@@ -1,6 +1,7 @@
 <ul>
 {{#each results.results}}
-<li><a href="/artist/{{this.id}}">{{this.title}}</a></li>
+<img src="{{this.cover_image}}" alt="">
+<li><a href="/artist?artistId={{this.id}}&image={{this.cover_image}}">{{this.title}}</a></li>
 
 {{/each}}
 </ul>

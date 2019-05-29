@@ -8,7 +8,8 @@ const artistSchema = new Schema({
         name: String,
         active: Boolean
     }],
-    idArtist: { type: Number, unique: true, }
+    idArtist: { type: Number, unique: true, },
+    image_url: String
 }, {
     timestamps: {
         createdAt: "created_at",

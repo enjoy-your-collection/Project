@@ -17,10 +17,21 @@ router.get('/', (req, res, next) => {
 
     Promise.all(
         arrArtist.map(elm => {
+            //https://api.discogs.com/database/search?q=Nirvana&key=aZPWSvWzWSrzydPcQNVw&secret=jhiOqYTPMVIeUXHnolYuNsZQuLBRUJRQ
             return axios
-                .get(`https://api.discogs.com/artists/${elm}`)
-                .then(response => response.data)
-                .catch(err => console.log("hubo un error", err));
+                .get(
+                    `https://api.discogs.com/artists/${elm}?key=aZPWSvWzWSrzydPcQNVw&secret=jhiOqYTPMVIeUXHnolYuNsZQuLBRUJRQ`
+                )
+                .then(
+                    response =>
+                    response.data
+                )
+                .catch(err =>
+                    console.log(
+                        "hubo un error",
+                        err
+                    )
+                );
         })
 
     ).then(arr => {
@@ -34,36 +45,55 @@ router.get('/', (req, res, next) => {
 });
 // VISTA DISCOGRAFÍA
 router.get("/artist/:artist_id/release", (req, res, next) => {
-    axios.get(`https://api.discogs.com/artists/${req.params.artist_id}/releases`)
-        .then(response => {
-            res.render("discography", response.data);
-        })
-        .catch(err => res.render("discography", { msg: "ese album no esta disponible", }));
+    //https://api.discogs.com/database/search?q=Nirvana&key=aZPWSvWzWSrzydPcQNVw&secret=jhiOqYTPMVIeUXHnolYuNsZQuLBRUJRQ
+
+    axios
+        .get(
+            `https://api.discogs.com/artists/${req.params.artist_id}/releases`
+        )
+        .then(
+            response => {
+                res.render(
+                    "discography",
+                    response.data
+                );
+            }
+        )
+        .catch(
+            err =>
+            res.render(
+                "discography", {
+                    msg: "ese album no esta disponible"
+                }
+            )
+        );
 })
 
 // VISTA ALBUM
 router.get('/artist/albums/:release_id', (req, res, next) => {
         axios
             .get(`https://api.discogs.com/masters/${req.params.release_id}`)
-            .then(response => { 
-                let songTabs = response.data.tracklist.map( song => {
+            .then(response => {
+                let songTabs = response.data.tracklist.map(song => {
                     song.titleUri = encodeURIComponent(song.title)
                     return song
                 })
                 Review.find({ idAlbum: response.data.id })
-                .then(elm =>{
-                    console.log(songTabs)
-                    res.render("albums", { album: response.data, review: elm, songTabs, art: response.data.artists[0].name })
-                });
+                    .then(elm => {
+                        console.log(songTabs)
+                        res.render("albums", { album: response.data, review: elm, songTabs, art: response.data.artists[0].name })
+                    });
             })
             .catch(err => res.render("discography", { msg: "This release info is not available at the moment", }));
 
 
     })
-    // VISTA ARTISTA
-router.get("/artist/:artist_id", (req, res, next) => {
-    console.log(req.params)
-    Artist.findOne({ idArtist: req.params.artist_id }, )
+    // Vista artista
+router.get("/artist", (req, res, next) => {
+    console.log('----------------------------------------')
+    const { artistId, image } = req.query
+
+    Artist.findOne({ idArtist: req.query.artistId }, )
         .then(found => {
             if (!found) {
                 newArt()
@@ -74,18 +104,21 @@ router.get("/artist/:artist_id", (req, res, next) => {
                 res.render("artist-detail", { msg: "no se pudo encontrar ese artista" })
                 return
             }
+            console.log(found)
             res.render("artist-detail", found)
         });
 
     const newArt = () => {
-        axios.get(`https://api.discogs.com/artists/${req.params.artist_id}`)
+        axios.get(`https://api.discogs.com/artists/${artistId}`)
             .then(response => {
-                const { name, profile, members, id } = response.data
+                console.log(response.data)
+                const { name, profile, members, } = response.data
                 const newArtist = new Artist({
                     name,
                     profile,
                     members,
-                    idArtist: id
+                    idArtist: artistId,
+                    image_url: image
                 });
                 newArtist.save()
                     .then((created) => {
@@ -95,6 +128,7 @@ router.get("/artist/:artist_id", (req, res, next) => {
                             });
                             return;
                         }
+                        console.log(created)
                         res.render("artist-detail", created);
 
 
@@ -109,11 +143,16 @@ router.get("/artist/:artist_id", (req, res, next) => {
 
 // VISTA BÚSQUEDA ARTISTAS
 
+
 router.post("/artists", (req, res, post) => {
     axios.get(
             `https://api.discogs.com/database/search?q=${req.body.artist}&key=${process.env.discogsKey}&secret=${process.env.discogsSecret}`
         )
         .then(results => {
+            console.log("----------------------------------")
+            console.log(results.data.result)
+
+
             res.render("search", { results: results.data });
         })
         .catch(err => console.log(err));
@@ -138,4 +177,4 @@ router.post("/review/:album_id", (req, res, next) => {
 
 
 
-module.exports = router;    
+module.exports = router;
