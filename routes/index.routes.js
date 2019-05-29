@@ -3,21 +3,7 @@ const router = express.Router();
 const axios = require("axios")
 const Review = require("../models/review")
 const Artist = require("../models/artist")
-const SpotifyWebApi = require("spotify-web-api-node");
-/* GET home page */
-
-const spotifyApi = new SpotifyWebApi({
-    clientId: process.env.clientIdSpotify,
-    clientSecret: process.env.clientSecretSpotify
-});
-spotifyApi.clientCredentialsGrant()
-    .then(data => {
-        spotifyApi.setAccessToken(data.body['access_token']);
-    })
-    .catch(error => {
-        console.log('Something went wrong when retrieving an access token', error);
-    })
-
+    /* GET home page */
 router.get('/', (req, res, next) => {
 
 
@@ -31,10 +17,21 @@ router.get('/', (req, res, next) => {
 
     Promise.all(
         arrArtist.map(elm => {
+            //https://api.discogs.com/database/search?q=Nirvana&key=aZPWSvWzWSrzydPcQNVw&secret=jhiOqYTPMVIeUXHnolYuNsZQuLBRUJRQ
             return axios
-                .get(`https://api.discogs.com/artists/${elm}`)
-                .then(response => response.data)
-                .catch(err => console.log("hubo un error", err));
+                .get(
+                    `https://api.discogs.com/artists/${elm}?key=aZPWSvWzWSrzydPcQNVw&secret=jhiOqYTPMVIeUXHnolYuNsZQuLBRUJRQ`
+                )
+                .then(
+                    response =>
+                    response.data
+                )
+                .catch(err =>
+                    console.log(
+                        "hubo un error",
+                        err
+                    )
+                );
         })
 
     ).then(arr => {
@@ -48,16 +45,28 @@ router.get('/', (req, res, next) => {
 });
 // Vista discografía
 router.get("/artist/:artist_id/release", (req, res, next) => {
-    axios.get(`https://api.discogs.com/artists/${req.params.artist_id}/releases`)
-        .then(response => {
-            res.render("discography", response.data);
+    //https://api.discogs.com/database/search?q=Nirvana&key=aZPWSvWzWSrzydPcQNVw&secret=jhiOqYTPMVIeUXHnolYuNsZQuLBRUJRQ
 
-
-        })
-        .catch(err => res.render("discography", { msg: "ese album no esta disponible", }));
-
-
-
+    axios
+        .get(
+            `https://api.discogs.com/artists/${req.params.artist_id}/releases`
+        )
+        .then(
+            response => {
+                res.render(
+                    "discography",
+                    response.data
+                );
+            }
+        )
+        .catch(
+            err =>
+            res.render(
+                "discography", {
+                    msg: "ese album no esta disponible"
+                }
+            )
+        );
 })
 
 // Vista álbum
@@ -81,9 +90,11 @@ router.get('/artist/albums/:release_id', (req, res, next) => {
 
     })
     // Vista artista
-router.get("/artist/:artist_id", (req, res, next) => {
-    console.log(req.params)
-    Artist.findOne({ idArtist: req.params.artist_id }, )
+router.get("/artist", (req, res, next) => {
+    console.log('----------------------------------------')
+    const { artistId, image } = req.query
+
+    Artist.findOne({ idArtist: req.query.artistId }, )
         .then(found => {
             if (!found) {
                 newArt()
@@ -94,30 +105,32 @@ router.get("/artist/:artist_id", (req, res, next) => {
                 res.render("artist-detail", { msg: "no se pudo encontrar ese artista" })
                 return
             }
+            console.log(found)
             res.render("artist-detail", found)
         });
 
     const newArt = () => {
-        axios.get(`https://api.discogs.com/artists/${req.params.artist_id}`)
+        axios.get(`https://api.discogs.com/artists/${artistId}`)
             .then(response => {
-                const { name, profile, members, id } = response.data
+                console.log(response.data)
+                const { name, profile, members, } = response.data
                 const newArtist = new Artist({
                     name,
                     profile,
                     members,
-                    idArtist: id
+                    idArtist: artistId,
+                    image_url: image
                 });
                 newArtist.save()
                     .then((created) => {
-                        axios.get(`https://api.spotify.com/v1/search?q=name:${created.name}&type=artist`)
-                            .then(response => res.render("artist-detail", response.data))
-                            // if (!created.members || !created.profile) {
-                            //     res.render("artist-detail", {
-                            //         msg: "no se pudo encontrar ese artista"
-                            //     });
-                            //     return;
-                            // }
-                            // res.render("artist-detail", created);
+                        if (!created.members || !created.profile) {
+                            res.render("artist-detail", {
+                                msg: "no se pudo encontrar ese artista"
+                            });
+                            return;
+                        }
+                        console.log(created)
+                        res.render("artist-detail", created);
 
 
                     })
@@ -131,11 +144,16 @@ router.get("/artist/:artist_id", (req, res, next) => {
 
 // Vista búsqueda artistas
 
+
 router.post("/artists", (req, res, post) => {
     axios.get(
             `https://api.discogs.com/database/search?q=${req.body.artist}&key=${process.env.discogsKey}&secret=${process.env.discogsSecret}`
         )
         .then(results => {
+            console.log("----------------------------------")
+            console.log(results.data.result)
+
+
             res.render("search", { results: results.data });
         })
         .catch(err => console.log(err));
