@@ -56,7 +56,7 @@ router.get('/artist/albums/:release_id', (req, res, next) => {
                     res.render("albums", { album: response.data, review: elm, songTabs, art: response.data.artists[0].name })
                 });
             })
-            .catch(err => res.render("discography", { msg: "ese album no esta disponible", }));
+            .catch(err => res.render("discography", { msg: "This release info is not available at the moment", }));
 
 
     })
@@ -138,6 +138,4 @@ router.post("/review/:album_id", (req, res, next) => {
 
 
 
-
-
-module.exports = router;
+module.exports = router;    
