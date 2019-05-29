@@ -6,12 +6,29 @@ const Artist = require("../models/artist")
     /* GET home page */
 router.get('/', (req, res, next) => {
 
-    let randomArtist = (Math.floor(Math.random() * 6279473))
 
-    axios
-        .get(`https://api.discogs.com/artists/${randomArtist}`)
-        .then(response => res.render("index", response.data))
-        .catch(err => console.log("hubo un error", err));
+    let randomArtist = () => (Math.floor(Math.random() * 6279473))
+    arrArtist = []
+    arrArtist.push(randomArtist());
+    arrArtist.push(randomArtist());
+    arrArtist.push(randomArtist());
+    arrArtist.push(randomArtist())
+
+
+    Promise.all(
+        arrArtist.map(elm => {
+            return axios
+                .get(`https://api.discogs.com/artists/${elm}`)
+                .then(response => response.data)
+                .catch(err => console.log("hubo un error", err));
+        })
+
+    ).then(arr => {
+        console.log("empieza aqui,", arr)
+        res.render("index", { arr })
+    })
+
+
 
 
 });
@@ -55,6 +72,10 @@ router.get("/artist/:artist_id", (req, res, next) => {
                 return
 
             }
+            if (!found.members || !found.profile) {
+                res.render("artist-detail", { msg: "no se pudo encontrar ese artista" })
+                return
+            }
             res.render("artist-detail", found)
         });
 
@@ -70,6 +91,12 @@ router.get("/artist/:artist_id", (req, res, next) => {
                 });
                 newArtist.save()
                     .then((created) => {
+                        if (!created.members || !created.profile) {
+                            res.render("artist-detail", {
+                                msg: "no se pudo encontrar ese artista"
+                            });
+                            return;
+                        }
                         res.render("artist-detail", created);
 
 
