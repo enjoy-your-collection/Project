@@ -14,10 +14,27 @@
   <li>{{position}} {{title}}</li>
   {{/each}}
 </ul>
-{{#each this.s}}
-<p>{{title}}</p>
-<a href="http://www.songsterr.com/a/wa/song?id={{id}}" target="_blank">Song</a>
+
+<h3>Guitar Tabs</h3>
+<ul>
+{{#each songTabs}}
+<li>
+<a href="http://www.songsterr.com/a/wa/bestMatchForQueryString?s={{this.titleUri}}&a={{../art}}"
+  target="_blank">{{this.title}}</a>
+</li>
 {{/each}}
+</ul>
+
+<h3>Bass Tabs</h3>
+<ul>
+{{#each songTabs}}
+<li>
+<a href="http://www.songsterr.com/a/wa/bestMatchForQueryString?s={{this.titleUri}}&a={{../art}}&inst=bass"
+  target="_blank">{{this.title}}</a>
+</li>
+{{/each}}
+</ul>
+
 
 {{#if review}}
 {{#each review}}
@@ -27,11 +44,6 @@
 {{/each}}
 {{/if}}
 
-<h3>Guitar Tabs</h3>
-{{#each songTabs}}
-<a href="http://www.songsterr.com/a/wa/bestMatchForQueryString?s={{this.titleUri}}&a={{../art}}"
-  target="_blank">{{this.title}}</a>
-{{/each}}
 
 <h3>Nueva Review</h3>
 <form action="/review/{{album.id}}" method="post" class="review">
