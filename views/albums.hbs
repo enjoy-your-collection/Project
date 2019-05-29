@@ -27,6 +27,12 @@
 {{/each}}
 {{/if}}
 
+<h3>Guitar Tabs</h3>
+{{#each songTabs}}
+<a href="http://www.songsterr.com/a/wa/bestMatchForQueryString?s={{this.titleUri}}&a={{../art}}"
+  target="_blank">{{this.title}}</a>
+{{/each}}
+
 <h3>Nueva Review</h3>
 <form action="/review/{{album.id}}" method="post" class="review">
 <label>Título de la reseña:

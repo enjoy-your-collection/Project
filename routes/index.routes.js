@@ -34,10 +34,16 @@ router.get('/artist/albums/:release_id', (req, res, next) => {
 
         axios
             .get(`https://api.discogs.com/masters/${req.params.release_id}`)
-            .then(response => {
-                Review.find({ idAlbum: response.data.id }).then(elm =>
-                    res.render("albums", { album: response.data, review: elm })
-                );
+            .then(response => { 
+                let songTabs = response.data.tracklist.map( song => {
+                    song.titleUri = encodeURIComponent(song.title)
+                    return song
+                })
+                Review.find({ idAlbum: response.data.id })
+                .then(elm =>{
+                    console.log(songTabs)
+                    res.render("albums", { album: response.data, review: elm, songTabs, art: response.data.artists[0].name })
+                });
             })
             .catch(err => res.render("discography", { msg: "ese album no esta disponible", }));
 
@@ -46,19 +52,6 @@ router.get('/artist/albums/:release_id', (req, res, next) => {
     // Vista artista
 router.get("/artist/:artist_id", (req, res, next) => {
     console.log(req.params)
-    axios
-        .get(`https://api.discogs.com/artists/${req.params.artist_id}`)
-        .then(response => {
-           let artistTab = encodeURIComponent(response.data.name)
-            axios.get(`https://www.songsterr.com/a/ra/songs/byartists.json?artists=${artistTab}`)
-            .then(resTab => {
-                console.log(resTab.data, "FUCK YEAH!!!")
-                res.render("albums", { s: resTab.data.splice(0, 10)});
-            })
-        })
-        .catch(err => console.log("hubo un error", err));
-
-
     Artist.findOne({ idArtist: req.params.artist_id }, )
         .then(found => {
             if (!found) {
@@ -91,13 +84,10 @@ router.get("/artist/:artist_id", (req, res, next) => {
     }
 })
 
-<<<<<<< HEAD
 
 
 // Vista búsqueda artistas
 
-=======
->>>>>>> 6b15bb38cb1946b95aff7301f352f7d6ae68bf54
 router.post("/artists", (req, res, post) => {
     axios.get(
             `https://api.discogs.com/database/search?q=${req.body.artist}&key=${process.env.discogsKey}&secret=${process.env.discogsSecret}`
