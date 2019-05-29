@@ -3,7 +3,21 @@ const router = express.Router();
 const axios = require("axios")
 const Review = require("../models/review")
 const Artist = require("../models/artist")
-    /* GET home page */
+const SpotifyWebApi = require("spotify-web-api-node");
+/* GET home page */
+
+const spotifyApi = new SpotifyWebApi({
+    clientId: process.env.clientIdSpotify,
+    clientSecret: process.env.clientSecretSpotify
+});
+spotifyApi.clientCredentialsGrant()
+    .then(data => {
+        spotifyApi.setAccessToken(data.body['access_token']);
+    })
+    .catch(error => {
+        console.log('Something went wrong when retrieving an access token', error);
+    })
+
 router.get('/', (req, res, next) => {
 
 
@@ -51,16 +65,16 @@ router.get('/artist/albums/:release_id', (req, res, next) => {
 
         axios
             .get(`https://api.discogs.com/masters/${req.params.release_id}`)
-            .then(response => { 
-                let songTabs = response.data.tracklist.map( song => {
+            .then(response => {
+                let songTabs = response.data.tracklist.map(song => {
                     song.titleUri = encodeURIComponent(song.title)
                     return song
                 })
                 Review.find({ idAlbum: response.data.id })
-                .then(elm =>{
-                    console.log(songTabs)
-                    res.render("albums", { album: response.data, review: elm, songTabs, art: response.data.artists[0].name })
-                });
+                    .then(elm => {
+                        console.log(songTabs)
+                        res.render("albums", { album: response.data, review: elm, songTabs, art: response.data.artists[0].name })
+                    });
             })
             .catch(err => res.render("discography", { msg: "ese album no esta disponible", }));
 
@@ -95,13 +109,15 @@ router.get("/artist/:artist_id", (req, res, next) => {
                 });
                 newArtist.save()
                     .then((created) => {
-                        if (!created.members || !created.profile) {
-                            res.render("artist-detail", {
-                                msg: "no se pudo encontrar ese artista"
-                            });
-                            return;
-                        }
-                        res.render("artist-detail", created);
+                        axios.get(`https://api.spotify.com/v1/search?q=name:${created.name}&type=artist`)
+                            .then(response => res.render("artist-detail", response.data))
+                            // if (!created.members || !created.profile) {
+                            //     res.render("artist-detail", {
+                            //         msg: "no se pudo encontrar ese artista"
+                            //     });
+                            //     return;
+                            // }
+                            // res.render("artist-detail", created);
 
 
                     })
