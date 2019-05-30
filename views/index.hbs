@@ -1,13 +1,15 @@
 {{!-- <h1>{{title}}</h1> --}}
 <div>
   <article>
-    <h2>Artists</h2>
-      {{#each arr}}
+    <h2>Last Artist Search</h2>
+      {{#each found}}
         {{#if this}}
-        <ul>
-          <li><a href="/artist/{{this.id}}">{{this.name}}</a></li>
-          {{/if}}
-        </ul>
+          <ul>
+            <li>
+            <a href="/artist?artistId={{this.idArtist}}&image={{this.cover_image}}"><img src="{{image_url}}" alt="artist image">{{this.name}}</a>
+            </li>
+        {{/if}}
+          </ul>
       {{/each}}
   </article>
   <article>
@@ -33,5 +35,22 @@
       </ul>
   </article>
 </div>
+{{!-- <h2>Albums</h2>
+<ul>
+  {{#each arr}}
+  {{#if this}}
+  <li><a href="{{this.releases_url}}">discografía de {{this.name}}</a></li>
+  {{/if}}
+  {{/each}} --}}
+{{!-- </ul>
+
+<h2>Labels</h2>
+<ul>
+  <li><a href="/labels">Label name</a></li>
+</ul>
+<h2>Latest reviews</h2>
+<ul>
+  <li><a href="/latestreview">Latest review</a></li>
+</ul> --}}
 
 

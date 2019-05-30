@@ -1,7 +1,7 @@
 <ul>
 {{#each results.results}}
-<img src="{{this.cover_image}}" alt="">
-<li><a href="/artist?artistId={{this.id}}&image={{this.cover_image}}">{{this.title}}</a></li>
+<li><a href="/artist?artistId={{this.id}}&image={{this.cover_image}}"><img src="{{this.cover_image}}" alt="">
+{{this.title}}</a></li>
 
 {{/each}}
 </ul>
