@@ -9,7 +9,6 @@
 <p>{{this.profile}}</p>
 <hr>
 {{!-- Members   --}}
-<<<<<<< HEAD
 <article>
   <h3>Active Members</h3>
     {{#each this.members}}
@@ -26,24 +25,8 @@
       {{/unless}}
     {{/each}}
 </article>
-=======
-<h3>Active Members</h3>
-  {{#each this.members}}
-    {{#if this.active}}
-      <h5>{{this.name}}</h5>
-    {{/if}}
-  {{/each}}
-<h3>Past Members</h3>
-  {{#each this.members}}
-    {{#unless this.active}}
-      <h5>{{this.name}}</h5>
-    {{/unless}}
-  {{/each}}
->>>>>>> master
 <hr>
-<h2><a href="/artist/{{this.idArtist}}/release">Discography</a>
+<h2>
+  <a href="/artist/{{this.idArtist}}/release">Discography</a>
 </h2>
-{{#each this.s}}
-<p>{{title}}</p>
-<a href="http://www.songsterr.com/a/wa/song?id={{id}}" target="_blank">Song</a>
-{{/each}}
+  
