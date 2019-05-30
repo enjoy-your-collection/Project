@@ -1,7 +1,18 @@
 <ul>
-{{#each results.results}}
+{{#each results}}
+
+  <a href="{{this.urlHbs}}">
+    {{#if this.name}}
+    {{this.name}}
+    {{else}}
+    {{this.title}}
+    {{/if}}
+  </a>
+{{!-- {{#contains this.type "artist"}}
 <li><a href="/artist?artistId={{this.id}}&image={{this.cover_image}}"><img src="{{this.cover_image}}" alt="">
 {{this.title}}</a></li>
+
+{{/contains}} --}}
 
 {{/each}}
 </ul>
