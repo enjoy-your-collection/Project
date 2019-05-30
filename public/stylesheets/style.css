@@ -3,10 +3,8 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
-.container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap; }
+a {
+  color: #00B7FF; }
 
 .review label {
   margin: 25px; }
@@ -14,9 +12,5 @@ body {
 .description {
   display: block; }
 
-footer {
-  padding: 50px;
-  color: gray;
-  background-color: black; }
-
 /*# sourceMappingURL=style.css.map */
+
