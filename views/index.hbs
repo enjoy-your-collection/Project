@@ -17,9 +17,9 @@
   <article class="item">
     <h2>Albums</h2>
         <ul>
-          {{#each arr}}
+          {{#each found}}
             {{#if this}}
-              <li><a href="{{this.releases_url}}">discografía de {{this.name}}</a></li>
+              <li><a href="{{this.release_url}}">discografía de {{this.name}}</a></li>
             {{/if}}
           {{/each}}
         </ul>
