@@ -1,19 +1,30 @@
 {{#if msg}}
 <h3>{{this.msg}}</h3>
-<a href="javascript:history.go(-1)">Back</a>
+  <a href="javascript:history.go(-1)">Back</a>
 {{/if}}
 <img src="{{this.image_url}}" alt="artist image">
+
 <h1>{{this.name}}</h1>
 <hr>
 <p>{{this.profile}}</p>
-
+<hr>
 {{!-- Members   --}}
-<h3>Active Members</h3>
-{{#each this.members}}
-{{#if this.active}}
-<h5>{{this.name}}</h5>
-{{/if}}
-{{/each}}
+<article>
+  <h3>Active Members</h3>
+    {{#each this.members}}
+      {{#if this.active}}
+        <h5>{{this.name}}</h5>
+      {{/if}}
+    {{/each}}
+</article>
+<article>
+  <h3>Past Members</h3>
+    {{#each this.members}}
+      {{#unless this.active}}
+        <h5>{{this.name}}</h5>
+      {{/unless}}
+    {{/each}}
+</article>
 <hr>
 <h2><a href="/artist/{{this.idArtist}}/release">Discography</a>
 </h2>
