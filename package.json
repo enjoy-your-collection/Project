@@ -21,7 +21,11 @@
         "express-session": "^1.15.6",
         "handlebars-helpers": "^0.10.0",
         "hbs": "^4.0.1",
+<<<<<<< HEAD
         "hbs-helper": "0.0.5",
+=======
+        "hbs-helpers": "^1.0.3",
+>>>>>>> 58cb3db64266623fa8b678a274608507300db1e9
         "mongoose": "^5.2.10",
         "morgan": "^1.9.0",
         "node-sass-middleware": "^0.11.0",
