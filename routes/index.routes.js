@@ -22,8 +22,11 @@ const comparison = helpers.comparison()
 
         /* GET home page */
 router.get('/', (req, res, next) => {
-    Artist.find({}).limit(5)
+    Artist.find({})
+      .sort({ updated_at: -1 })
+      .limit(5)
       .then(found => {
+        console.log(found);
         res.render("index", { found });
       })
       .catch(err => console.log("no hay datos"));
@@ -35,7 +38,6 @@ router.get('/', (req, res, next) => {
 // VISTA DISCOGRAFÍA
 router.get("/release", (req, res, next) => {
   const {release_url} = req.query
-    //https://api.discogs.com/database/search?q=Nirvana&key=aZPWSvWzWSrzydPcQNVw&secret=jhiOqYTPMVIeUXHnolYuNsZQuLBRUJRQ
 
     axios
       .get(`${release_url}?key=${process.env.discogsKey}&secret=${process.env.discogsSecret}`)

@@ -1,13 +1,12 @@
 body {
-<<<<<<< HEAD
-=======
   font-family: 'Roboto', sans-serif;
->>>>>>> 1932f9d036d49965ed0f682c50bddce5268c217e
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
-a {
-  color: #00B7FF; }
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; }
 
 .review label {
   margin: 25px; }
@@ -15,9 +14,9 @@ a {
 .description {
   display: block; }
 
-<<<<<<< HEAD
-/*# sourceMappingURL=style.css.map */
-=======
-/*# sourceMappingURL=style.css.map */
+footer {
+  padding: 50px;
+  color: gray;
+  background-color: black; }
 
->>>>>>> 1932f9d036d49965ed0f682c50bddce5268c217e
+/*# sourceMappingURL=style.css.map */
