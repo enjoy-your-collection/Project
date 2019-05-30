@@ -1,3 +1,4 @@
+/*# sourceMappingURL=style.css.map */
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
@@ -11,4 +12,8 @@ a {
 .description {
   display: block; }
 
-/*# sourceMappingURL=style.css.map */
+footer {
+  padding: 50px;
+  background-color: black;
+  color: grey;
+}
