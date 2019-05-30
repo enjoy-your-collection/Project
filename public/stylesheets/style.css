@@ -5,11 +5,8 @@ body {
 
 .container {
   display: flex;
-  flex-direction: 
-}  
-
-a {
-  color: #00B7FF; }
+  flex-direction: row;
+  flex-wrap: wrap; }
 
 .review label {
   margin: 25px; }
@@ -20,6 +17,6 @@ a {
 footer {
   padding: 50px;
   color: gray;
-  background-color: black;
-}  
-  /*# sourceMappingURL=style.css.map */
+  background-color: black; }
+
+/*# sourceMappingURL=style.css.map */
