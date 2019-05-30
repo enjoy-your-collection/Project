@@ -1,9 +1,6 @@
-/*# sourceMappingURL=style.css.map */
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  font-family: 'Roboto', sans-serif;
-}
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
 a {
   color: #00B7FF; }
@@ -14,8 +11,4 @@ a {
 .description {
   display: block; }
 
-footer {
-  padding: 50px;
-  background-color: black;
-  color: grey;
-}
+/*# sourceMappingURL=style.css.map */

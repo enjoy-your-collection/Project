@@ -35,29 +35,41 @@ router.get('/', (req, res, next) => {
     
 
 // VISTA DISCOGRAFÍA
-router.get("/artist/:artist_id/release", (req, res, next) => {
+router.get("/release", (req, res, next) => {
+  const {release_url} = req.query
     //https://api.discogs.com/database/search?q=Nirvana&key=aZPWSvWzWSrzydPcQNVw&secret=jhiOqYTPMVIeUXHnolYuNsZQuLBRUJRQ
 
     axios
-        .get(
-            `https://api.discogs.com/artists/${req.params.artist_id}/releases`
-        )
-        .then(
-            response => {
-                res.render(
-                    "discography",
-                    response.data
-                );
-            }
-        )
-        .catch(
-            err =>
-            res.render(
-                "discography", {
-                    msg: "ese album no esta disponible"
-                }
-            )
-        );
+      .get(`${release_url}?key=${process.env.discogsKey}&secret=${process.env.discogsSecret}`)
+      .then(response => {
+        console.log(response.data)
+        response.data.releases = response.data.releases.map(data => {
+          if (data.type == "artist") {
+            data.urlHbs = `/artist?artistId=${data.id}&image=${
+              data.thumb
+            }`;
+          } else if (data.type == "master") {
+            data.urlHbs = `/albums?masterId=${data.id}&image=${
+              data.thumb
+            }`;
+          } else if (data.type == "release") {
+            data.urlHbs = `/release?release_url=${
+              data.resource_url
+            }`;
+          } else {
+         
+            }`;
+          }
+          return data;
+        });
+        console.log(response.data)
+        res.render("discography", response.data);
+      })
+      .catch(err =>
+        res.render("discography", {
+          msg: "ese album no esta disponible"
+        })
+      );
 })
 
 // VISTA ALBUM
@@ -66,14 +78,18 @@ router.get('/albums', (req, res, next) => {
     //masterulr=${ data.resource_url}&image=${data.cover_image}`;
     //https://api.discogs.com/masters/5598
         axios
-          .get(`https://api.discogs.com/masters/${masterId}`)
+          .get(
+            `https://api.discogs.com/masters/${masterId}?key=${
+              process.env.discogsKey
+            }&secret=${process.env.discogsSecret}`
+          )
           .then(response => {
+            // console.log(response.data)
             let songTabs = response.data.tracklist.map(song => {
               song.titleUri = encodeURIComponent(song.title);
               return song;
             });
-            Review.find({ idAlbum: response.data.id })
-            .then(elm => {
+            Review.find({ idAlbum: response.data.id }).then(elm => {
               res.render("albums", {
                 album: response.data,
                 review: elm,
@@ -110,31 +126,43 @@ router.get("/artist", (req, res, next) => {
         });
 
     const newArt = () => {
-        axios.get(`https://api.discogs.com/artists/${artistId}`)
-            .then(response => {
-                const { name, profile, members, } = response.data
-                const newArtist = new Artist({
-                    name,
-                    profile,
-                    members,
-                    idArtist: artistId,
-                    image_url: image
+        axios
+          .get(
+            `https://api.discogs.com/artists/${artistId}?key=${
+              process.env.discogsKey
+            }&secret=${process.env.discogsSecret}`
+          )
+          .then(response => {
+            console.log(response.data);
+            const {
+              name,
+              profile,
+              members,
+              releases_url
+            } = response.data;
+            const newArtist = new Artist({
+              name,
+              profile,
+              members,
+              idArtist: artistId,
+              image_url: image_url,
+              release_url: releases_url
+            });
+            newArtist.save().then(created => {
+              if (!created.members || !created.profile) {
+                res.render("artist-detail", {
+                  msg: "no se pudo encontrar ese artista"
                 });
-                newArtist.save()
-                    .then((created) => {
-                        if (!created.members || !created.profile) {
-                            res.render("artist-detail", {
-                                msg: "no se pudo encontrar ese artista"
-                            });
-                            return;
-                        }
-                        res.render("artist-detail", created);
-
-
-                    })
-
+                return;
+              }
+              res.render("artist-detail", created);
+            });
+          })
+          .catch(err =>
+            res.render("artist-detail", {
+              msg: "no se pudo encontrar ese artista"
             })
-            .catch(err => res.render("artist-detail", { msg: "no se pudo encontrar ese artista" }))
+          );
     }
 })
 
