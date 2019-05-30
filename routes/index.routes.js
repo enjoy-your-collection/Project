@@ -58,7 +58,7 @@ router.get("/release", (req, res, next) => {
             }`;
           } else {
          
-            }`;
+            
           }
           return data;
         });
