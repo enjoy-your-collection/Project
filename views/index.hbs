@@ -1,28 +1,37 @@
 {{!-- <h1>{{title}}</h1> --}}
-<h2>Artists</h2>
-  {{#each arr}}
-  {{#if this}}
-<ul>
-  <li><a href="/artist/{{this.id}}">{{this.name}}</a></li>
-  {{/if}}
-</ul>
-{{/each}}
-<h2>Albums</h2>
-<ul>
-  {{#each arr}}
-  {{#if this}}
-  <li><a href="{{this.releases_url}}">discografía de {{this.name}}</a></li>
-  {{/if}}
-  {{/each}}
-</ul>
-
-<h2>Labels</h2>
-<ul>
-  <li><a href="/labels">Label name</a></li>
-</ul>
-<h2>Latest reviews</h2>
-<ul>
-  <li><a href="/latestreview">Latest review</a></li>
-</ul>
+<div>
+  <article>
+    <h2>Artists</h2>
+      {{#each arr}}
+        {{#if this}}
+        <ul>
+          <li><a href="/artist/{{this.id}}">{{this.name}}</a></li>
+          {{/if}}
+        </ul>
+      {{/each}}
+  </article>
+  <article>
+    <h2>Albums</h2>
+        <ul>
+          {{#each arr}}
+            {{#if this}}
+              <li><a href="{{this.releases_url}}">discografía de {{this.name}}</a></li>
+            {{/if}}
+          {{/each}}
+        </ul>
+  </article>
+  <article>
+    <h2>Labels</h2>
+      <ul>
+        <li><a href="/labels">Label name</a></li>
+      </ul>
+  </article>
+  <article>    
+    <h2>Latest reviews</h2>
+      <ul>
+        <li><a href="/latestreview">Latest review</a></li>
+      </ul>
+  </article>
+</div>
 
 

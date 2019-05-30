@@ -9,11 +9,17 @@
 
 {{!-- Members   --}}
 <h3>Active Members</h3>
-{{#each this.members}}
-{{#if this.active}}
-<h5>{{this.name}}</h5>
-{{/if}}
-{{/each}}
+  {{#each this.members}}
+    {{#if this.active}}
+      <h5>{{this.name}}</h5>
+    {{/if}}
+  {{/each}}
+<h3>Past Members</h3>
+  {{#each this.members}}
+    {{#unless this.active}}
+      <h5>{{this.name}}</h5>
+    {{/unless}}
+  {{/each}}
 <hr>
 <h2><a href="/artist/{{this.idArtist}}/release">Discography</a>
 </h2>
