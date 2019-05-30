@@ -8,8 +8,13 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-  align-items: flex-start;
-  align-content: space-between; }
+  align-items: flex-start; }
+
+.bandPhoto {
+  height: 100px; }
+
+.item {
+  flex-grow: 1; }
 
 .review label {
   margin: 25px; }
@@ -18,9 +23,8 @@ body {
   display: block; }
 
 footer {
-  padding: 50px;
+  padding: 25px;
   color: gray;
   background-color: black; }
 
 /*# sourceMappingURL=style.css.map */
-
