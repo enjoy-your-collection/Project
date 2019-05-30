@@ -1,9 +1,12 @@
-/*# sourceMappingURL=style.css.map */
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   font-family: 'Roboto', sans-serif;
-}
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
+
+.container {
+  display: flex;
+  flex-direction: 
+}  
 
 a {
   color: #00B7FF; }
@@ -16,6 +19,7 @@ a {
 
 footer {
   padding: 50px;
+  color: gray;
   background-color: black;
-  color: grey;
-}
+}  
+  /*# sourceMappingURL=style.css.map */
