@@ -3,11 +3,29 @@ const router = express.Router();
 const axios = require("axios")
 const Review = require("../models/review")
 const Artist = require("../models/artist")
-    /* GET home page */
+const hbs = require("express-hbs");
+const helpers = require("handlebars-helpers");
+const comparison = helpers.comparison()
+
+//helpers config
+
+// helpers.contains = function(collection, value, startIndex, options) {
+//   if (typeof startIndex === 'object') {
+//     options = startIndex;
+//     startIndex = undefined;
+//   }
+//   var val = utils.contains(collection, value, startIndex);
+//   return util.value(val, this, options);
+// };
+
+
+
+        /* GET home page */
 router.get('/', (req, res, next) => {
     Artist.find({})
     .then(found => {
                     console.log(found)
+                    
                     res.render("index", { found })            
                 })
                 .catch(err => console.log("no hay datos"))
@@ -43,20 +61,33 @@ router.get("/artist/:artist_id/release", (req, res, next) => {
 })
 
 // VISTA ALBUM
-router.get('/artist/albums/:release_id', (req, res, next) => {
+router.get('/albums', (req, res, next) => {
+    const {masterId, image} = req.query
+    //masterulr=${ data.resource_url}&image=${data.cover_image}`;
+    //https://api.discogs.com/masters/5598
         axios
-            .get(`https://api.discogs.com/masters/${req.params.release_id}`)
-            .then(response => {
-                let songTabs = response.data.tracklist.map(song => {
-                    song.titleUri = encodeURIComponent(song.title)
-                    return song
-                })
-                Review.find({ idAlbum: response.data.id })
-                    .then(elm => {
-                        res.render("albums", { album: response.data, review: elm, songTabs, art: response.data.artists[0].name })
-                    });
+          .get(`https://api.discogs.com/masters/${masterId}`)
+          .then(response => {
+            let songTabs = response.data.tracklist.map(song => {
+              song.titleUri = encodeURIComponent(song.title);
+              return song;
+            });
+            Review.find({ idAlbum: response.data.id })
+            .then(elm => {
+              res.render("albums", {
+                album: response.data,
+                review: elm,
+                songTabs,
+                art: response.data.artists[0].name,
+                image: image
+              });
+            });
+          })
+          .catch(err =>
+            res.render("discography", {
+              msg: "This release info is not available at the moment"
             })
-            .catch(err => res.render("discography", { msg: "This release info is not available at the moment", }));
+          );
 
 
     })
@@ -117,9 +148,28 @@ router.post("/artists", (req, res, post) => {
             `https://api.discogs.com/database/search?q=${req.body.artist}&key=${process.env.discogsKey}&secret=${process.env.discogsSecret}`
         )
         .then(results => {
-
-
-            res.render("search", { results: results.data });
+            //console.log("results.data", results.data)
+            results.data.results = results.data.results.map(
+              data => {
+                if (data.type == "artist") {
+                  data.urlHbs = `/artist?artistId=${
+                    data.id
+                  }&image=${data.cover_image}`;
+                } else if (data.type == "master") {
+                  data.urlHbs = `/albums?masterId=${data.master_id}&image=${data.cover_image}`;
+                } else if (data.type == "release") {
+                  data.urlHbs = `/release?releaseId=${
+                    data.id
+                  }&image=${data.cover_image}`;
+                } else {
+                  data.urlHbs = `/label?labelId=${data.id}&image=${
+                    data.cover_image
+                  }`;
+                }
+                return data;
+              }
+            );
+            res.render("search", { results: results.data.results });
         })
         .catch(err => console.log(err));
 })
