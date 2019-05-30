@@ -22,13 +22,11 @@ const comparison = helpers.comparison()
 
         /* GET home page */
 router.get('/', (req, res, next) => {
-    Artist.find({})
-    .then(found => {
-                    console.log(found)
-                    
-                    res.render("index", { found })            
-                })
-                .catch(err => console.log("no hay datos"))
+    Artist.find({}).limit(5)
+      .then(found => {
+        res.render("index", { found });
+      })
+      .catch(err => console.log("no hay datos"));
             })
 
 
@@ -111,19 +109,15 @@ router.get('/albums', (req, res, next) => {
 router.get("/artist", (req, res, next) => {
     const { artistId, image } = req.query
 
-    Artist.findOne({ idArtist: req.query.artistId }, )
+    Artist.findOne({ idArtist:  artistId }, )
         .then(found => {
             if (!found) {
-                newArt()
-                return
-
-            }
-            if (!found.members || !found.profile) {
-                res.render("artist-detail", { msg: "no se pudo encontrar ese artista" })
+              newArt()
                 return
             }
             res.render("artist-detail", found)
-        });
+        })
+        .catch(err=>console.log(err))
 
     const newArt = () => {
         axios
@@ -133,19 +127,21 @@ router.get("/artist", (req, res, next) => {
             }&secret=${process.env.discogsSecret}`
           )
           .then(response => {
-            console.log(response.data);
+            console.log(response.data)
+            const url = response.data.images[0].uri
             const {
               name,
               profile,
               members,
-              releases_url
+              releases_url,
             } = response.data;
+        
             const newArtist = new Artist({
               name,
               profile,
               members,
               idArtist: artistId,
-              image_url: image_url,
+              image_url:url,
               release_url: releases_url
             });
             newArtist.save().then(created => {

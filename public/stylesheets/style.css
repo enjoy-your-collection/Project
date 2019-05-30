@@ -1,17 +1,6 @@
 body {
-<<<<<<< HEAD
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
-=======
-  font-family: 'Roboto', sans-serif;
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
-
-.container {
-  display: flex;
-  flex-direction: 
-}  
->>>>>>> d9d5426cfd577c2b394a3deaf782622f13762aba
 
 a {
   color: #00B7FF; }
@@ -22,13 +11,4 @@ a {
 .description {
   display: block; }
 
-<<<<<<< HEAD
 /*# sourceMappingURL=style.css.map */
-=======
-footer {
-  padding: 50px;
-  color: gray;
-  background-color: black;
-}  
-  /*# sourceMappingURL=style.css.map */
->>>>>>> d9d5426cfd577c2b394a3deaf782622f13762aba
