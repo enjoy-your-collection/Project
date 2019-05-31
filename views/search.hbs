@@ -1,14 +1,17 @@
-<ul>
+<ul class="flex-search">
 {{#each results}}
-
-  <a href="{{this.urlHbs}}">
-    <img src="{{this.cover_image}}" alt="cover image">
+{{#if this.urlHbs}}
+  <a class="search" href="{{this.urlHbs}}">
+    {{#if this.thumb}}
+    <img src="{{this.thumb}}" class="search-image" alt="cover image">
     {{#if this.name}}
-    {{this.name}}
+    <h3 class="search-name">{{this.name}}</h3>
     {{else}}
-    {{this.title}}
+    <h3 class="search-name">{{this.title}}</h3>
+    {{/if}}
     {{/if}}
   </a>
+  {{/if}}
 {{!-- {{#contains this.type "artist"}}
 <li><a href="/artist?artistId={{this.id}}&image={{this.cover_image}}"><img src="{{this.cover_image}}" alt="">
 {{this.title}}</a></li>

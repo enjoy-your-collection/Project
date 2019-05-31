@@ -22,14 +22,19 @@ const comparison = helpers.comparison()
 
         /* GET home page */
 router.get('/', (req, res, next) => {
+  Promise.all([
+    Review.find({})
+      .sort({ updated_at: -1 })
+      .limit(6),
     Artist.find({})
       .sort({ updated_at: -1 })
-      .limit(5)
-      .then(found => {
-        console.log(found);
-        res.render("index", { found });
-      })
-      .catch(err => console.log("no hay datos"));
+      .limit(6)
+  ])
+    .then(arr => {
+      console.log(arr);
+      res.render("index", { artist: arr[1], review: arr[0] });
+    })
+    .catch(err => console.log("no hay datos"));
             })
 
 
@@ -84,7 +89,7 @@ router.get('/albums', (req, res, next) => {
             }&secret=${process.env.discogsSecret}`
           )
           .then(response => {
-            // console.log(response.data)
+            console.log(response.data)
             let songTabs = response.data.tracklist.map(song => {
               song.titleUri = encodeURIComponent(song.title);
               return song;
@@ -95,7 +100,7 @@ router.get('/albums', (req, res, next) => {
                 review: elm,
                 songTabs,
                 art: response.data.artists[0].name,
-                image: image
+                image: response.data.thumb
               });
             });
           })
@@ -177,20 +182,23 @@ router.post("/artists", (req, res, post) => {
             //console.log("results.data", results.data)
             results.data.results = results.data.results.map(
               data => {
-                if (data.type == "artist") {
-                  data.urlHbs = `/artist?artistId=${
-                    data.id
-                  }&image=${data.cover_image}`;
-                } else if (data.type == "master") {
-                  data.urlHbs = `/albums?masterId=${data.master_id}&image=${data.cover_image}`;
-                } else if (data.type == "release") {
-                  data.urlHbs = `/release?releaseId=${
-                    data.id
-                  }&image=${data.cover_image}`;
-                } else {
-                  data.urlHbs = `/label?labelId=${data.id}&image=${
-                    data.cover_image
-                  }`;
+                console.log(data)
+                if (!data.thumb.includes(".gif")) {
+                  if (data.type == "artist") {
+                    data.urlHbs = `/artist?artistId=${
+                      data.id
+                    }&image=${data.thumb}`;
+                  } else if (data.type == "master") {
+                    data.urlHbs = `/albums?masterId=${
+                      data.master_id
+                    }&image=${data.thumb}`;
+                  } else if (data.type == "release") {
+                    data.urlHbs = `/release?releaseId=${
+                      data.id
+                    }&image=${data.thumb}`;
+                  } else {
+                   
+                  }
                 }
                 return data;
               }
@@ -210,7 +218,7 @@ router.post("/review/:album_id", (req, res, next) => {
     });
     newReview.save()
         .then(x => {
-            res.redirect(`/artist/albums/${id}`)
+            res.redirect(`/albums?masterId=${id}`)
         })
         .catch(error => console.log(error));
 
