@@ -12,8 +12,7 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: flex-start;
-//   align-content:  
+    align-items: flex-start; 
 } 
 
 h2 {
@@ -53,6 +52,7 @@ a:hover {
 
 .bandPhoto {
     height: 300px;
+    padding-bottom: 20px;
 }
 img.alineadoTextoImagenAbajo{
   padding-top: 10px;  
@@ -61,7 +61,6 @@ img.alineadoTextoImagenAbajo{
 .artClass {
     padding: 10px;
     text-align: center;
-    // background-color: blue;
 }
 
 .review label {
@@ -72,23 +71,17 @@ img.alineadoTextoImagenAbajo{
     display: block
 }
 
-footer { 
-  padding-top:10px;
-  color: gray;
-  background-color: black;
-  font-size: 13px; 
-  display: flex;
-  justify-content: space-around;
-}  
-
-footer p{
-  text-align: center
+.reviewBlock {
+  margin: 10px 0;
 }
-.search-image {
-  height:180px
+
+.rating {
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
 
+// SEARCH VIEW
 .search {
   text-decoration: none;
   color: rgb(0, 0, 0);
@@ -161,7 +154,6 @@ p {
   width: 200px;
 }
 
-<<<<<<< HEAD
 // ALBUM VIEW
 
 .albumPhoto {
@@ -175,13 +167,25 @@ p {
 .name {
   padding-bottom: 10px;
 }
-=======
 
-.flex-footer{
+// FOOTER
+footer { 
+  margin-top: 20px;
+  padding-top:10px;
+  color: gray;
+  background-color: black;
+  font-size: 13px; 
+  display: flex;
+  justify-content: space-around;
+}  
 
+footer p{
+  text-align: center
+}
+.search-image {
+  height:180px
 }
 footer section h3 {
 font-size: 20px
 }
   
->>>>>>> 92e5155012e54b042613601fbeb8cb66c943bce1

@@ -1,4 +1,6 @@
 {{!-- <h1>{{title}}</h1> --}}
+
+{{!-- Artists --}}
 <div class="container">
     <h2>Artists</h2><br>
       {{#each artist}}
@@ -10,16 +12,19 @@
             </article>
         {{/if}}         
       {{/each}}
-          <h2>Latest reviews</h2>
 
+{{!-- Reviews --}}
+          <h2>Latest reviews</h2>
+    
       {{#each review}}
-      <a href="/albums?masterId={{this.idAlbum}}">Enter review</a>
+      <div class="reviewBlock" >
+      <a href="/albums?masterId={{this.idAlbum}}"><h3>{{this.title}}</h3></a>
       {{#if this}}
-      <li>
-        <h3>{{this.title}}</h3>
-        <p>{{this.rating}}/5</p>
+      <li>  
+        <p class="rating" >{{this.rating}}/5</p>
         <p>{{this.description }}</p>
       </li>
+      </div>
       {{/if}}
       {{/each}}
   
