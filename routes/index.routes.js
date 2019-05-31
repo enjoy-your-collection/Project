@@ -25,10 +25,10 @@ router.get('/', (req, res, next) => {
   Promise.all([
     Review.find({})
       .sort({ updated_at: -1 })
-      .limit(5),
+      .limit(6),
     Artist.find({})
       .sort({ updated_at: -1 })
-      .limit(5)
+      .limit(6)
   ])
     .then(arr => {
       console.log(arr);
