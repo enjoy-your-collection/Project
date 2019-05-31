@@ -6,7 +6,7 @@
 {{#each this.releases}}
 <section class="album" >
   {{#if this.urlHbs}}
-  <a href="{{this.urlHbs}}"><img  src="{{this.thumb}}" alt="image"><h4 class="albumTitle" >{{this.title}}</h4></a> 
+  <a href="{{this.urlHbs}}"><img class="albumCover" src="{{this.thumb}}" alt="image"><h4 class="albumTitle">{{this.title}}</h4></a> 
   <p>{{this.year}}</p>
   {{/if}}
 </section>

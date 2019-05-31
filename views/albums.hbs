@@ -1,17 +1,22 @@
-<img src="{{image}}" alt="album image">
-<h2>{{album.title}}</h2>
-<h3>
+{{!-- Album Cover --}}
+<img class="albumPhoto" src="{{image}}" alt="album image">
+
+{{!-- Album Title --}}
+<h2 class="albumViewTitle">{{album.title}}</h2>
+
+{{!-- Band Name --}}
+<h3 class="name" >
   {{#each album.artists}}
 <a href="/artist?artistId={{this.id}}">{{this.name}}</a>
   {{/each}}
 </h3>
 
+{{!-- Album Info --}}
+<h4>Genre: {{album.genres}}</h4>
+<h4>Style: {{album.styles}}</h4>
+<h4>Year: {{album.year}}</h4>
 
-<h5>Genre: {{album.genres}}</h5>
-<h5>Style: {{album.styles}}</h5>
-<h5>Year: {{album.year}}</h5>
-
-{{!-- // Número y nombre de canción --}}
+{{!-- // Album Tracks --}}
 <h5>Tracklist:</h5>
 <ul>{{#each album.tracklist}} 
   <li>{{position}} {{title}}</li>
