@@ -1,14 +1,26 @@
 {{!-- <h1>{{title}}</h1> --}}
 <div class="container">
     <h2>Artists</h2><br>
-      {{#each found}}
+      {{#each artist}}
         {{#if this}}         
             <article class="item artClass">
-             <a href="/artist?artistId={{this.idArtist}}&image={{this.cover_image}}">
-              <img class="bandPhoto alineadoTextoImagenAbajo" src="{{image_url}}" alt="artist image"><h3>{{this.name}}</h3>
+             <a href="/artist?artistId={{this.idArtist}}&image={{this.image_url:}}">
+              <img class="bandPhoto alineadoTextoImagenAbajo" src="{{this.image_url}}" alt="artist image"><h3>{{this.name}}</h3>
              </a>
             </article>
         {{/if}}         
+      {{/each}}
+          <h2>Latest reviews</h2>
+
+      {{#each review}}
+      <a href="/albums?masterId={{this.idAlbum}}">enlace al album de la review</a>
+      {{#if this}}
+      <li>
+        <h3>{{this.title}}</h3>
+        <p>{{this.rating}}</p>
+        <p>{{this.description }}</p>
+      </li>
+      {{/if}}
       {{/each}}
   
   {{!-- <article class="item">
@@ -28,16 +40,8 @@
       </ul>
   </article> --}}
   {{!-- <article class="item">    
-    <h2>Latest reviews</h2>
       <ul>
-        {{#each review}}
-        <a href="/albums?masterId={{this.idAlbum}}">enlace al album de la review</a>
-        {{#if this}}
-        <li><h3>{{this.title}}</h3>
-        <p>{{this.rating}}</p>
-        <p>{{this.description }}</p></li>
-        {{/if}}
-        {{/each}}
+        
       </ul>
   </article> --}}
 </div>
