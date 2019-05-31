@@ -104,8 +104,7 @@ footer {
   flex-shrink: 4;
   align-content:space-around;
   text-align: center;
-align-items: flex-start;
-
+  align-items: flex-start;
   justify-content: space-evenly;
   
 }
@@ -125,4 +124,22 @@ align-items: flex-start;
 
 .bandName {
   text-align: center;
+}
+
+// DISCOGRAPHY VIEW
+
+.discoFlex {
+  padding-top: 20px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+.album {
+  flex-grow: 1;
+}
+
+.albumTitle {
+  width: 200px;
 }

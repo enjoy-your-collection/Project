@@ -97,4 +97,17 @@ footer {
 .bandName {
   text-align: center; }
 
+.discoFlex {
+  padding-top: 20px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: flex-start; }
+
+.album {
+  flex-grow: 1; }
+
+.albumTitle {
+  width: 200px; }
+
 /*# sourceMappingURL=style.css.map */

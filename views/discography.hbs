@@ -2,11 +2,11 @@
 <h3>{{this.msg}}</h3>
 <a href="javascript:history.go(-1)">Back</a>
 {{/if}}
-<div class="container">
+<div class="discoFlex">
 {{#each this.releases}}
-<section>
+<section class="album" >
   {{#if this.urlHbs}}
-  <a href="{{this.urlHbs}}"><img  src="{{this.thumb}}" alt="image"><h4 class="search-name">{{this.title}}</h4></a> 
+  <a href="{{this.urlHbs}}"><img  src="{{this.thumb}}" alt="image"><h4 class="albumTitle" >{{this.title}}</h4></a> 
   <p>{{this.year}}</p>
   {{/if}}
 </section>
