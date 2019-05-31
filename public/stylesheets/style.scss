@@ -4,15 +4,22 @@ body {
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
    
 }
+
 .container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: flex-start;
-  align-content: space-between
+//   align-content:  
 } 
 
+.bandPhoto {
+    height: 100px;
+}
+.item {
+    flex-grow: 1;
+}
 
 .review label {
     margin: 25px
@@ -22,8 +29,8 @@ body {
     display: block
 }
 
-footer {
-  padding: 50px;
+footer { 
+  padding:25px;
   color: gray;
   background-color: black;
 }  
