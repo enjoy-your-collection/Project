@@ -89,7 +89,8 @@ router.get('/albums', (req, res, next) => {
             }&secret=${process.env.discogsSecret}`
           )
           .then(response => {
-            console.log(response.data)
+           // console.log("holamundo",response.data)
+            const urlImage = response.data.images[0].uri
             let songTabs = response.data.tracklist.map(song => {
               song.titleUri = encodeURIComponent(song.title);
               return song;
@@ -100,7 +101,7 @@ router.get('/albums', (req, res, next) => {
                 review: elm,
                 songTabs,
                 art: response.data.artists[0].name,
-                image: response.data.thumb
+                image: urlImage
               });
             });
           })
