@@ -2,6 +2,7 @@ body {
     font-family: 'Roboto', sans-serif;
     padding: 50px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+   
 }
 .container {
   display: flex;
@@ -26,3 +27,39 @@ footer {
   color: gray;
   background-color: black;
 }  
+.search-image {
+  height:180px
+}
+
+
+.search {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+    text-align: center;
+    margin: 15px;
+
+
+  
+}
+.search h3 {
+    font-size: 20px;
+        width: 200px;
+
+    
+}
+
+.flex-search {
+  display: flex;
+  flex-wrap: wrap;
+  flex-shrink: 4;
+  align-content:space-around;
+  text-align: center;
+align-items: flex-start;
+
+  justify-content: space-evenly;
+  
+}
+.search:hover{
+  color: black;
+  text-decoration: none;
+}

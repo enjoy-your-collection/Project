@@ -177,20 +177,23 @@ router.post("/artists", (req, res, post) => {
             //console.log("results.data", results.data)
             results.data.results = results.data.results.map(
               data => {
-                if (data.type == "artist") {
-                  data.urlHbs = `/artist?artistId=${
-                    data.id
-                  }&image=${data.cover_image}`;
-                } else if (data.type == "master") {
-                  data.urlHbs = `/albums?masterId=${data.master_id}&image=${data.cover_image}`;
-                } else if (data.type == "release") {
-                  data.urlHbs = `/release?releaseId=${
-                    data.id
-                  }&image=${data.cover_image}`;
-                } else {
-                  data.urlHbs = `/label?labelId=${data.id}&image=${
-                    data.cover_image
-                  }`;
+                console.log(data)
+                if (!data.thumb.includes(".gif")) {
+                  if (data.type == "artist") {
+                    data.urlHbs = `/artist?artistId=${
+                      data.id
+                    }&image=${data.thumb}`;
+                  } else if (data.type == "master") {
+                    data.urlHbs = `/albums?masterId=${
+                      data.master_id
+                    }&image=${data.thumb}`;
+                  } else if (data.type == "release") {
+                    data.urlHbs = `/release?releaseId=${
+                      data.id
+                    }&image=${data.thumb}`;
+                  } else {
+                   
+                  }
                 }
                 return data;
               }
