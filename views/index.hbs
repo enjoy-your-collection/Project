@@ -2,7 +2,7 @@
 <div class="container">
   <article class="item">
     <h2>Artists</h2>
-      {{#each found}}
+      {{#each artist}}
         {{#if this}}
           <ul>
             <li>
@@ -14,26 +14,19 @@
           </ul>
       {{/each}}
   </article>
-  <article class="item">
-    <h2>Albums</h2>
-        <ul>
-          {{#each found}}
-            {{#if this}}
-              <li><a href="{{this.release_url}}">discografía de {{this.name}}</a></li>
-            {{/if}}
-          {{/each}}
-        </ul>
-  </article>
-  <article class="item">
-    <h2>Labels</h2>
-      <ul>
-        <li><a href="/labels">Labels</a></li>
-      </ul>
-  </article>
+  
+    
   <article class="item">    
     <h2>Latest reviews</h2>
       <ul>
-        <li><a href="/latestreview">Reviews</a></li>
+        {{#each review}}
+        <a href="/albums?masterId={{this.idAlbum}}">enlace al album de la review</a>
+        {{#if this}}
+        <li><h3>{{this.title}}</h3>
+        <p>{{this.rating}}</p>
+        <p>{{this.description }}</p></li>
+        {{/if}}
+        {{/each}}
       </ul>
   </article>
 </div>

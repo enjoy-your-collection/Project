@@ -22,14 +22,19 @@ const comparison = helpers.comparison()
 
         /* GET home page */
 router.get('/', (req, res, next) => {
+  Promise.all([
+    Review.find({})
+      .sort({ updated_at: -1 })
+      .limit(5),
     Artist.find({})
       .sort({ updated_at: -1 })
       .limit(5)
-      .then(found => {
-        console.log(found);
-        res.render("index", { found });
-      })
-      .catch(err => console.log("no hay datos"));
+  ])
+    .then(arr => {
+      console.log(arr);
+      res.render("index", { artist: arr[1], review: arr[0] });
+    })
+    .catch(err => console.log("no hay datos"));
             })
 
 
@@ -84,7 +89,7 @@ router.get('/albums', (req, res, next) => {
             }&secret=${process.env.discogsSecret}`
           )
           .then(response => {
-            // console.log(response.data)
+            console.log(response.data)
             let songTabs = response.data.tracklist.map(song => {
               song.titleUri = encodeURIComponent(song.title);
               return song;
@@ -95,7 +100,7 @@ router.get('/albums', (req, res, next) => {
                 review: elm,
                 songTabs,
                 art: response.data.artists[0].name,
-                image: image
+                image: response.data.thumb
               });
             });
           })
@@ -213,7 +218,7 @@ router.post("/review/:album_id", (req, res, next) => {
     });
     newReview.save()
         .then(x => {
-            res.redirect(`/artist/albums/${id}`)
+            res.redirect(`/albums?masterId=${id}`)
         })
         .catch(error => console.log(error));
 
