@@ -3,7 +3,7 @@ body {
     padding: 50px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     background-color: rgb(193, 191, 191);
-}
+} 
 
 // INDEX VIEW
 .container {
@@ -11,7 +11,7 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: flex-start;
 //   align-content:  
 } 
@@ -19,10 +19,13 @@ body {
 h2 {
     display: block;
     width: 100%;
-    // background-color: aqua;
     margin: 0 auto;
     text-align: center;
     padding-bottom: 20px;
+}
+
+h4 {
+  font-size: 15px;
 }
 
 span {
@@ -35,23 +38,24 @@ span {
 }
 
 li {
-    display: inline;
-    padding: 10px;
     list-style: none;
 }
 
-li img {
-
-}
-a    {
+a {
     color: gray;
     text-decoration-style: none;
+}
+
+a:hover {
+  color: black;
+  text-decoration: none;
 }
 
 .bandPhoto {
     height: 300px;
 }
 img.alineadoTextoImagenAbajo{
+  padding-top: 10px;  
   vertical-align: text-bottom;  
 }
 .artClass {
@@ -108,4 +112,17 @@ align-items: flex-start;
 .search:hover{
   color: black;
   text-decoration: none;
+}
+
+// ARTIST VIEW
+
+.bandMainPhoto {
+  padding: 30px 0 10px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.bandName {
+  text-align: center;
 }

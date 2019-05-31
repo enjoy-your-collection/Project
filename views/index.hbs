@@ -13,11 +13,11 @@
           <h2>Latest reviews</h2>
 
       {{#each review}}
-      <a href="/albums?masterId={{this.idAlbum}}">enlace al album de la review</a>
+      <a href="/albums?masterId={{this.idAlbum}}">Enter review</a>
       {{#if this}}
       <li>
         <h3>{{this.title}}</h3>
-        <p>{{this.rating}}</p>
+        <p>{{this.rating}}/5</p>
         <p>{{this.description }}</p>
       </li>
       {{/if}}
@@ -39,18 +39,5 @@
         <li><a href="/labels">Labels</a></li>
       </ul>
   </article> --}}
-  <article class="item">    
-    <h2>Latest reviews</h2>
-      <ul>
-        {{#each review}}
-        <a href="/albums?masterId={{this.idAlbum}}">Reviews</a>
-        {{#if this}}
-        <li><h3>{{this.title}}</h3>
-        <p>{{this.rating}}/5</p>
-        <p>{{this.description }}</p></li>
-        {{/if}}
-        {{/each}}
-      </ul>
-  </article>
 </div>
 

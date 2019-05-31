@@ -9,7 +9,7 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: flex-start; }
 
 h2 {
@@ -19,6 +19,9 @@ h2 {
   text-align: center;
   padding-bottom: 20px; }
 
+h4 {
+  font-size: 15px; }
+
 span {
   font-family: 'Cinzel', serif;
   font-size: 28px; }
@@ -27,18 +30,21 @@ span {
   flex-grow: 1; }
 
 li {
-  display: inline;
-  padding: 10px;
   list-style: none; }
 
 a {
   color: gray;
   text-decoration-style: none; }
 
+a:hover {
+  color: black;
+  text-decoration: none; }
+
 .bandPhoto {
   height: 300px; }
 
 img.alineadoTextoImagenAbajo {
+  padding-top: 10px;
   vertical-align: text-bottom; }
 
 .artClass {
@@ -81,5 +87,14 @@ footer {
 .search:hover {
   color: black;
   text-decoration: none; }
+
+.bandMainPhoto {
+  padding: 30px 0 10px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block; }
+
+.bandName {
+  text-align: center; }
 
 /*# sourceMappingURL=style.css.map */
