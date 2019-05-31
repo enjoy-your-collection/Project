@@ -1,7 +1,7 @@
 {{!-- <h1>{{title}}</h1> --}}
 <div class="container">
     <h2>Artists</h2><br>
-      {{#each found}}
+      {{#each artist}}
         {{#if this}}         
             <article class="item artClass">
              <a href="/artist?artistId={{this.idArtist}}&image={{this.cover_image}}">
