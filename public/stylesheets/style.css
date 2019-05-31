@@ -1,20 +1,49 @@
 body {
   font-family: 'Roboto', sans-serif;
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #c1bfbf; }
 
 .container {
+  padding-top: 20px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: flex-start; }
 
-.bandPhoto {
-  height: 100px; }
+h2 {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  padding-bottom: 20px; }
+
+span {
+  font-family: 'Cinzel', serif;
+  font-size: 28px; }
 
 .item {
   flex-grow: 1; }
+
+li {
+  display: inline;
+  padding: 10px;
+  list-style: none; }
+
+a {
+  color: gray;
+  text-decoration-style: none; }
+
+.bandPhoto {
+  height: 300px; }
+
+img.alineadoTextoImagenAbajo {
+  vertical-align: text-bottom; }
+
+.artClass {
+  padding: 10px;
+  text-align: center; }
 
 .review label {
   margin: 25px; }

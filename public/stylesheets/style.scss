@@ -2,22 +2,62 @@ body {
     font-family: 'Roboto', sans-serif;
     padding: 50px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background-color: rgb(193, 191, 191);
 }
 
+// INDEX VIEW
 .container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: flex-start;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
 //   align-content:  
 } 
 
-.bandPhoto {
-    height: 100px;
+h2 {
+    display: block;
+    width: 100%;
+    // background-color: aqua;
+    margin: 0 auto;
+    text-align: center;
+    padding-bottom: 20px;
 }
+
+span {
+    font-family: 'Cinzel', serif;
+    font-size: 28px;
+}
+
 .item {
     flex-grow: 1;
+}
+
+li {
+    display: inline;
+    padding: 10px;
+    list-style: none;
+}
+
+li img {
+
+}
+a    {
+    color: gray;
+    text-decoration-style: none;
+}
+
+.bandPhoto {
+    height: 300px;
+}
+img.alineadoTextoImagenAbajo{
+  vertical-align: text-bottom;  
+}
+.artClass {
+    padding: 10px;
+    text-align: center;
+    // background-color: blue;
 }
 
 .review label {
