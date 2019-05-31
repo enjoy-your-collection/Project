@@ -58,9 +58,15 @@ img.alineadoTextoImagenAbajo {
   display: block; }
 
 footer {
-  padding: 25px;
+  padding-top: 10px;
   color: gray;
-  background-color: black; }
+  background-color: black;
+  font-size: 13px;
+  display: flex;
+  justify-content: space-around; }
+
+footer p {
+  text-align: center; }
 
 .search-image {
   height: 180px; }
@@ -109,5 +115,8 @@ footer {
 
 .albumTitle {
   width: 200px; }
+
+footer section h3 {
+  font-size: 20px; }
 
 /*# sourceMappingURL=style.css.map */
