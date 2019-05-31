@@ -2,13 +2,19 @@
 <h3>{{this.msg}}</h3>
   <a href="javascript:history.go(-1)">Back</a>
 {{/if}}
-<img src="{{this.image_url}}" alt="artist image">
-
-<h1>{{this.name}}</h1>
+<figure>
+<img class="bandMainPhoto" src="{{this.image_url}}" alt="artist image">
+</figure>
+<h1 class="bandName" >{{this.name}}</h1>
 <hr>
 <p>{{this.profile}}</p>
 <hr>
+<h2>
+  <a href="/release?release_url={{this.release_url}}">Discography</a>
+</h2>
+<hr>
 {{!-- Members   --}}
+<div class="container">
 <article>
   <h3>Active Members</h3>
     {{#each this.members}}
@@ -25,8 +31,6 @@
       {{/unless}}
     {{/each}}
 </article>
-<hr>
-<h2>
-  <a href="/release?release_url={{this.release_url}}">Discography</a>
-</h2>
+</div>
+
   
