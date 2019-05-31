@@ -33,8 +33,8 @@
         {{#each review}}
         <a href="/albums?masterId={{this.idAlbum}}">Reviews</a>
         {{#if this}}
-        <li><h3>{{this.title}</h3>
-        <p>{{this.rating}}</p>
+        <li><h3>{{this.title}}</h3>
+        <p>{{this.rating}}/5</p>
         <p>{{this.description }}</p></li>
         {{/if}}
         {{/each}}
